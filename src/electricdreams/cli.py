@@ -1,8 +1,9 @@
 import traceback
 import electricdreams as ed
+from electricdreams import notebook
 import argparse
 
-def main(prompt : str = None, interactive : bool = False):
+def main(prompt : str = None, interactive : bool = False, strict_args : bool = True):
   """
   CLI interface for electricdreams
   Has both argumentparse and main() args to allow it to be called
@@ -19,20 +20,23 @@ def main(prompt : str = None, interactive : bool = False):
   PROMPT_AI : str = "AI: "
   COMMAND_QUIT : str = "quit"
   
-  # Initialize args
-  parser = argparse.ArgumentParser(description="Chat GPT interface")
-  parser.add_argument("-p", "--prompt", type=str, required=False, default=prompt, help="Initial prompt")
-  parser.add_argument("-i", "--interactive", type=bool, default=interactive, required=False, help="Interactive session")
-  args = parser.parse_args()
+  # Initialize args - only if running from a proper shell
+  if not notebook.is_notebook():
+    parser = argparse.ArgumentParser(description="Chat GPT interface")
+    parser.add_argument("-p", "--prompt", type=str, required=False, default=prompt, help="Initial prompt")
+    parser.add_argument("-i", "--interactive", type=bool, default=interactive, required=False, help="Interactive session")
+    if strict_args:
+      args = parser.parse_args()
+    else:
+      args,extra = parser.parse_known_args() # To allow chaining parsers
+    prompt = args.prompt
+    interactive = args.interactive
 
   # A session without an initial prompt will become instantly interactive
   # We need to ask for the prompt either
-  if args.prompt == None:
+  if prompt == None:
     interactive = True
     prompt = input(PROMPT_HUMAN)
-  else:
-    interactive = args.interactive
-    prompt = args.prompt
 
   # Initialize the conversation - will become a oneoff if interactive = False, will reuse previous
   # sentences if interactive = True
