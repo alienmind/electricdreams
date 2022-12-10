@@ -71,3 +71,9 @@ skip_empty = true
 branch = true
 source = ["src/electricdreams"]
 
+[tool.deptry]
+# Not sure why any of this
+ignore_obsolete = [ "ftfy", "scipy", "transformers", "accelerate" ] # This is used internally by Torch
+ignore_transitive = [ "electricdreams", "tqdm" ]
+ignore_missing = [ "cli", "pkg_resources" ]
+extend_exclude = [ "notebooks" ]
