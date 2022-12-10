@@ -1,20 +1,19 @@
 [tool.poetry]
 name = "electricdreams"
-version = "0.0.1"
+version = "0.0.3a0"
 description = "Helper module to interact with ChatGPT and Stable Diffusion. Just for DIY small projects."
 authors = ["AlienMind <falienmind@gmail.com>"]
 repository = "https://github.com/alienmind/electricdreams"
 documentation = "https://alienmind.github.io/electricdreams/"
 readme = "README.md"
 packages = [
-  {include = "electricdreams", from = "src"},
-  {include = "electricdreams-cli", from = "src"},
-  {include = "electricdreams-api", from = "src"}
+  {include = "electricdreams", from = "src"}
 ]
 
 [tool.poetry.scripts]
-electricdreams-cli = "electricdreams-cli.cli:main"  
-electricdreams-api = "electricdreams-api.api:run"  
+electricdreams-api="electricdreams.api:run"  
+electricdreams-cli="electricdreams.cli:main"  
+electricdreams-adventure="electricdreams.adventure:main"  
 
 [tool.poetry.dependencies]
 python = ">=3.8,<=3.11"
@@ -27,7 +26,6 @@ ftfy = "^6.1.1"
 accelerate = "^0.15.0"
 torch = "^1.13.0"
 fastapi = "^0.88.0"
-argparse = "^1.4.0"
 uvicorn = "^0.20.0"
 
 [tool.poetry.group.dev.dependencies]

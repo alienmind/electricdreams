@@ -8,7 +8,7 @@ import pkg_resources
 class Painter:
 
     # Default image if CUDA not available
-    DEFAULT_IMAGE = pkg_resources.resource_string('electricdreams-api', 'img/default.jpg')
+    DEFAULT_IMAGE = pkg_resources.resource_string('electricdreams', 'img/default.jpg')
 
     def __init__(self, cache_dir = '/tmp'):
         """
