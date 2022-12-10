@@ -4,13 +4,8 @@ def is_notebook() -> bool:
   This will disallow using argparse
   """
   try:
-      shell = get_ipython().__class__.__name__
-      if shell == 'ZMQInteractiveShell':
-          return True   # Jupyter notebook or qtconsole
-      elif shell == 'TerminalInteractiveShell':
-          return False  # Terminal running IPython
-      else:
-          return False  # Other type (?)
+    shell = get_ipython().__class__.__name__
+    return True
   except NameError:
-      return False      # Probably standard Python interpreter
+    return False
 
