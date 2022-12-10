@@ -31,7 +31,7 @@ def main(prompt: str = None, interactive: bool = False, strict_args: bool = True
         interactive = args.interactive
 
     # Create the chat session
-    chat = Chat(has_images=False, is_interactive=interactive, input_fn=input)
+    chat = Chat(has_images=True, is_interactive=interactive, input_fn=input)
 
     # Run the chat iteratively
     for response in chat.chat(prompt):

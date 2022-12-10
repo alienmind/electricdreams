@@ -1,0 +1,3 @@
+- More tests
+- Fix module so import electricdreams doesn't check for keys
+- Mock API keys for testing
