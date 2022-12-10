@@ -6,7 +6,7 @@
 [![Commit activity](https://img.shields.io/github/commit-activity/m/alienmind/electricdreams)](https://img.shields.io/github/commit-activity/m/alienmind/electricdreams)
 [![License](https://img.shields.io/github/license/alienmind/electricdreams)](https://img.shields.io/github/license/alienmind/electricdreams)
 
-![image info](./img/default.jpg)
+![image info](./docs/electricdreamslogo.jpg)
 
 Helper module and demo CLI to interact with ChatGPT and Stable Diffusion. Just for DIY small projects.
 
