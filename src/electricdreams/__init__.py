@@ -3,8 +3,8 @@ import os
 
 import dotenv
 
-from .chatter import Chat, Conversation
 from .config import CONFIG_LOCATIONS
+from .conversation import Conversation
 from .hasher import Hasher
 from .painter import Painter
 

@@ -19,7 +19,7 @@ DEF_PROMPT = (
 
 
 def get_default_prompt():
-    return DEF_PROMPT.format(DEF_THEME)
+    return DEF_PROMPT.format(theme=DEF_THEME)
 
 
 def main():
@@ -36,7 +36,7 @@ def main():
         theme = DEF_THEME
 
     print("TO EXIT, TYPE: quit")
-    prompt = DEF_PROMPT.format(theme)
+    prompt = DEF_PROMPT.format(theme=theme)
     return cli.main(prompt=prompt, interactive=True, strict_args=False)  # This will allow chaining argparsers
 
 

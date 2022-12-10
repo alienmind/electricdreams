@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "electricdreams"
-version = "0.0.5"
+version = "0.0.6a1"
 description = "Helper module to interact with ChatGPT and Stable Diffusion. Just for DIY small projects."
 authors = ["AlienMind <falienmind@gmail.com>"]
 repository = "https://github.com/alienmind/electricdreams"
