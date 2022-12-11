@@ -6,12 +6,19 @@ import electricdreams as ed
 
 app = FastAPI()
 painter = ed.Painter()
+conversation = ed.Conversation()
 
 
 @app.get("/image/")
 async def get_image(prompt: str) -> FileResponse:
     ret = painter.paint(prompt)
     return FileResponse(ret)
+
+
+@app.get("/query/")
+async def query(prompt: str) -> str:
+    ret = conversation.query(prompt)
+    return ret
 
 
 def run():
