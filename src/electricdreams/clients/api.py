@@ -4,7 +4,7 @@ from fastapi.responses import FileResponse
 
 import electricdreams as ed
 
-app = FastAPI()
+app = FastAPI(title="Electricdreams API")
 painter = ed.Painter()
 conversation = ed.Conversation()
 
