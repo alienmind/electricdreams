@@ -1,26 +1,99 @@
+from io import StringIO
+
 import uvicorn
+import yaml
 from fastapi import FastAPI
+from fastapi.openapi.utils import get_openapi
 from fastapi.responses import FileResponse
+from fastapi.routing import APIRoute
+from starlette.responses import Response
 
 import electricdreams as ed
 
-app = FastAPI(title="Electricdreams API")
+
+class UnicornAPI(FastAPI):
+    def __init__(
+        self,
+        *,
+        contact_name: str = "",
+        contact_email: str = "",
+        audience: str = "",
+        **kwargs,
+    ) -> None:
+        super().__init__(**kwargs)
+        self.contact = {
+            "name": contact_name,
+            "email": contact_email,
+        }
+        self.audience = audience
+        self.openapi_yaml_str = ""
+
+    def use_route_names_as_op_ids(self):  # pylint: disable=redefined-outer-name
+        """Simplify operation IDs so that generated API clients have simpler function
+        names.
+
+        """
+        for route in self.routes:
+            if isinstance(route, APIRoute):
+                route.operation_id = route.name  # in this case, 'read_items'
+
+    def openapi(self) -> dict:
+        # Change original method to include extra info fields and to generate YAML
+        # from the openapi schema.
+        if not self.openapi_schema:
+            self.use_route_names_as_op_ids()
+            self.openapi_schema = get_openapi(
+                title=self.title,
+                version=self.version,
+                openapi_version=self.openapi_version,
+                description=self.description,
+                routes=self.routes,
+                # openapi_prefix=self.openapi_prefix,
+            )
+            self.openapi_schema["info"]["contact"] = self.contact
+            self.openapi_schema["info"]["x-audience"] = self.audience
+
+            yaml_str = StringIO()
+            yaml.dump(self.openapi(), yaml_str)
+            self.openapi_yaml_str = yaml_str.getvalue()
+
+        return self.openapi_schema
+
+    def openapi_yaml(self) -> str:
+        # This is just a wrapper for the opanapi path operation
+        self.openapi()
+        return self.openapi_yaml_str
+
+    def setup(self) -> None:
+        # Override the openapi path operation to return YAML
+        super().setup()
+        if self.openapi_url:
+
+            async def openapi() -> Response:
+                return Response(self.openapi_yaml(), media_type="text/yaml")
+
+            self.add_route(self.openapi_url, openapi, include_in_schema=False)
+
+
+##########
+
+app = UnicornAPI(title="Electricdreams API")
 painter = ed.Painter()
 conversation = ed.Conversation()
 
 
-@app.get("/image/")
+@app.get("/image/", tags=["paint"])
 async def get_image(prompt: str) -> FileResponse:
     ret = painter.paint(prompt)
     return FileResponse(ret)
 
 
-@app.get("/query/")
+@app.get("/query/", tags=["chat"])
 async def query(prompt: str) -> str:
     ret = conversation.query(prompt)
     return ret
 
 
 def run():
-    """Launched with `poetry run electricdreams-api` at root level"""
+    """Launched with `poetry run api` at root level"""
     uvicorn.run("electricdreams.clients.api:app", host="0.0.0.0", port=8000, reload=True)

@@ -28,6 +28,7 @@ torch = "^1.13.0"
 fastapi = "^0.88.0"
 uvicorn = "^0.20.0"
 Pillow = "^9.3.0"
+PyYAML = "^6.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.0"
@@ -36,6 +37,7 @@ deptry = "^0.6.4"
 mypy = "^0.981"
 pre-commit = "^2.20.0"
 tox = "^3.25.1"
+openapi-fastapi-client = "^0.2.0"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "^1.4.2"
