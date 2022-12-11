@@ -11,9 +11,9 @@ packages = [
 ]
 
 [tool.poetry.scripts]
-api="electricdreams.api:run"  
-cli="electricdreams.cli:main"  
-adventure="electricdreams.adventure:main"  
+api="electricdreams.clients.api:run"  
+cli="electricdreams.clients.cli:main"  
+adventure="electricdreams.clients.adventure:main"  
 
 [tool.poetry.dependencies]
 python = ">=3.8,<=3.11"

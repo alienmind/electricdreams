@@ -1,6 +1,7 @@
 import argparse
 
-from electricdreams import cli, notebook
+from electricdreams import notebook
+from electricdreams.clients import cli
 
 # By default this adventure will be set up in a Cyberpunk world
 # TODO - make an actual collection of interesting prompts - somewhere else

@@ -23,4 +23,4 @@ async def query(prompt: str) -> str:
 
 def run():
     """Launched with `poetry run electricdreams-api` at root level"""
-    uvicorn.run("electricdreams.api:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("electricdreams.clients.api:app", host="0.0.0.0", port=8000, reload=True)
